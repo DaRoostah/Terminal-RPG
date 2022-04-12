@@ -89,6 +89,7 @@ public class game {
                 round = 0;
                 fightOver = true;
                 fightStarted = false;
+                player.setCurrentEXP(enemy.drops());
                 System.out.println("You have defeated " + enemy.getName() + " Congratulations!");
                 runGame();
             }
@@ -198,12 +199,11 @@ public class game {
     private static void showStats(player player) {
         System.out.println("---------------------------------------------------------------------");
         System.out.println(player.getName() + "'s Stats\n" +
-                           "Level: " + player.getLevel() +
-                           "\nHP: " + player.getHP() + "\\" + player.getBaseHP() +
-                           "\nDEF: " + player.getBaseDEF());
+                           "Level: " + player.getLevel() + "\tEXP: " + player.getCurrentEXP() + "/" + player.getBaseEXP() +
+                           "\nHP: " + player.getHP() + "/" + player.getBaseHP() +
+                           "\tDEF: " + player.getBaseDEF());
                            if(!fightStarted) {
-                            System.out.println("\nATK: " + player.getATK() +
-                                               "\nINT: " + player.getINT());
+                            System.out.println("ATK: " + player.getATK() + "\tINT: " + player.getINT());
                            }
         System.out.println("---------------------------------------------------------------------");
     }
@@ -214,7 +214,7 @@ public class game {
         enemy.killEnemy();
         System.out.println("---------------------------------------------------------------------");
         System.out.println(enemy.getName() + "'s Stats\n" +
-                           "\nHP: " + enemy.getHP() + "\\" + enemy.getBaseHP() +
+                           "\nHP: " + enemy.getHP() + "/" + enemy.getBaseHP() +
                            "\nDEF: " + enemy.getDEF());
         System.out.println("---------------------------------------------------------------------");
     }
