@@ -3,7 +3,7 @@ package fileOrganizerlol.code.TheGameItself;
 
 // Player file
 import fileOrganizerlol.code.Player.*;
-import fileOrganizerlol.Store.LevelUp;
+import fileOrganizerlol.code.Store.LevelUp;
 // Enemy files
 import fileOrganizerlol.code.Enemies.EnemyBuild;
 import fileOrganizerlol.code.Enemies.EnemyChooser;
@@ -50,7 +50,7 @@ public class game {
             System.out.println("5. Quit");
             int intInput = sc.nextInt();
             switch(intInput) {
-                case 1: EnemyBuild enemy = Renemy.chosenEnemy();
+                case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
                         fightOver = false;
                         fightEnemy(player, enemy);
                         break;
@@ -88,12 +88,14 @@ public class game {
             if(enemy.getHP() <= 0) {
                 round = 0;
                 fightOver = true;
+                fightStarted = false;
                 System.out.println("You have defeated " + enemy.getName() + " Congratulations!");
                 runGame();
             }
 
             if(player.getHP() <= 0) {
                 fightOver = true;
+                fightStarted = false;
                 player.killPlayer();
                 cya(player, enemy);
                 break;
@@ -156,19 +158,20 @@ public class game {
     // One way to heal! B)
 
     public static void rest(player player, EnemyBuild enemy) {
-        if(player.getHP() > player.getBaseHP()) {
-            player.setHP((player.getBaseHP() - player.getHP())*-1);
-        }
+
         int healAmount = (rand.nextInt(player.getINT())+5)*-1;
         player.setHP(healAmount);
         System.out.println(player.getName() + " has healed for " + String.valueOf(healAmount*-1) + " HP!");
         enemyAttacks(player, enemy);
+        if(player.getHP() > player.getBaseHP()) {
+            player.setHP((player.getBaseHP() - player.getHP())*-1);
+        }
     }
 
 
     public static void rest(player player) {
         System.out.println("\n\nYou have fully rested, and returned to max stats");
-        player.setHP((player.getBaseHP() - player.getHP())*-1);
+        player.healPlayer();
         showStats(player);
     }
     
@@ -195,7 +198,13 @@ public class game {
     private static void showStats(player player) {
         System.out.println("---------------------------------------------------------------------");
         System.out.println(player.getName() + "'s Stats\n" +
-                           "HP: " + player.getHP() + "\\" + player.getBaseHP());
+                           "Level: " + player.getLevel() +
+                           "\nHP: " + player.getHP() + "\\" + player.getBaseHP() +
+                           "\nDEF: " + player.getBaseDEF());
+                           if(!fightStarted) {
+                            System.out.println("\nATK: " + player.getATK() +
+                                               "\nINT: " + player.getINT());
+                           }
         System.out.println("---------------------------------------------------------------------");
     }
 
@@ -205,13 +214,31 @@ public class game {
         enemy.killEnemy();
         System.out.println("---------------------------------------------------------------------");
         System.out.println(enemy.getName() + "'s Stats\n" +
-                           "HP: " + enemy.getHP() + "\\" + enemy.getBaseHP());
+                           "\nHP: " + enemy.getHP() + "\\" + enemy.getBaseHP() +
+                           "\nDEF: " + enemy.getDEF());
         System.out.println("---------------------------------------------------------------------");
     }
 
     // The marketplace for levels!
     private static void inMarketPlace(player player) {
         System.out.println(marketplace.showStore(player));
+        player.setLevel(1);
+        boolean LevelUp = true;
+        run:
+        while(LevelUp) {
+            int input = sc.nextInt();
+            switch(input) {
+                case 1: player.setBaseHP(10); LevelUp = false;
+                        break;
+                case 2: player.setBaseDEF(2); LevelUp = false;
+                        break;
+                case 3: player.setATK(10);    LevelUp = false;
+                        break;
+                case 4: player.setINT(2);     LevelUp = false;
+                        break;
+                default: System.out.println("Invalid Command"); continue run;
+            }
+        }
     }
 
     // Leaving the game :(

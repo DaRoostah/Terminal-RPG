@@ -1,4 +1,4 @@
-package fileOrganizerlol.Store;
+package fileOrganizerlol.code.Store;
 
 import fileOrganizerlol.code.Player.player;
 

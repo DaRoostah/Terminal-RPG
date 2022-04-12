@@ -4,7 +4,7 @@ import java.util.Random;
 import fileOrganizerlol.code.Player.player;
 
 public abstract class EnemyBuild {
-    private int BaseHP, HP, ATK, DEF, experienceOnDeath;
+    private int BaseHP, HP, ATK, DEF;
     private String name;
     private Random rand;
     public EnemyBuild(String name, int BaseHP, int ATk, int DEF) {
@@ -18,8 +18,7 @@ public abstract class EnemyBuild {
     public EnemyBuild() {}
     
     public int drops() {
-        double experienceOnDeath = Math.pow(getBaseHP(), 2) ;
-        return (int) experienceOnDeath;
+        return (int) (Math.pow(getBaseHP(), 2));
     }
     public String getName() {
         return name;
