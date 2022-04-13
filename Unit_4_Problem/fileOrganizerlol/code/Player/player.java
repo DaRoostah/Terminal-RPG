@@ -48,6 +48,9 @@ public class player {
     public void setBaseHP(int x) {
         player.baseHP += x;
     }
+    public void setHP(int x) {
+        player.HP = x;
+    }
     public void decreaseHP(int x) {
         player.HP -= x;
     }

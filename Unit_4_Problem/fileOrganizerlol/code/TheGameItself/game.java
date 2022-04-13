@@ -52,7 +52,7 @@ public class game {
               System.out.println("1. Fight Enemies");
               System.out.println("2. Rest");
               System.out.println("3. Show Stats");
-              System.out.println("4. Show Store");
+              System.out.println("4. Level Up!");
               System.out.println("5. Quit");
               int intInput = sc.nextInt();
               switch(intInput) {
@@ -107,11 +107,19 @@ public class game {
         if(!fightStarted || !fightOver) {
             round = 0;
             fightStarted = true;
+            fightOver = false;
         }
 
 
         run:
         while(fightStarted && !fightOver) {
+            if(player.getHP() <= 0) {
+                running = false;
+                fightStarted = false;
+                fightOver = true;
+                cya(player, enemy);
+                break;
+            }
 
             if(enemy.getHP() <= 0) {
                 round = 0;
@@ -125,19 +133,12 @@ public class game {
                 }
                 runGame();
 
-            }
-
-            if(player.getHP() <= 0) {
-                fightOver = true;
-                fightStarted = false;
-                player.killPlayer();
-                levelUp = false;
-                cya(player, enemy);
-                break;
-            } else {
+            }  else {
                 makeLines();
                 showFightStats(player, enemy);
             }
+
+
             round++;
             System.out.println("What do you want to do?");
             System.out.println("1. Attack");
@@ -194,12 +195,12 @@ public class game {
 
     public static void rest(player player, EnemyBuild enemy) {
 
-        int healAmount = (rand.nextInt(player.getINT())+5)*-1;
+        int healAmount = (rand.nextInt(player.getINT())+5);
         player.increaseHP(healAmount);
         System.out.println(player.getName() + " has healed for " + String.valueOf(healAmount*-1) + " HP!");
         enemyAttacks(player, enemy);
         if(player.getHP() > player.getBaseHP()) {
-            player.decreaseHP((player.getBaseHP() - player.getHP())*-1);
+            player.setHP(player.getBaseHP());
         }
     }
 
@@ -266,6 +267,7 @@ public class game {
             player.setCurrentEXP(0);
         if(levelsGained!=0) {
             levelUp = true;
+            System.out.println("\nYou leveled up: " + String.valueOf(levelsGained) + " times!");
             player.setLevel(levelsGained);
         }
     }
@@ -291,12 +293,11 @@ public class game {
 
     // Leaving the game :(
     public static void cya(player player, EnemyBuild enemy) {
-        running = false;
+
+        player.killPlayer();
         makeLines();
-        if(player.getHP() <= 0) {
-            showFightStats(player, enemy);
-            System.out.println("Should've just used recovery breathing smh");
-        }
+        showFightStats(player, enemy);
+        System.out.println("Should've just used recovery breathing smh");
     }
     public static void cya() {
         running = false;
