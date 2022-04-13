@@ -47,13 +47,9 @@ public abstract class EnemyBuild {
         return rand.nextInt(this.ATK);
     }
 
-    public int specialAttack(player player) {
-        return this.ATK + 5;
-    }
-
-    public String specialAttackLine() {
-      return "";
-    }
+    public abstract int specialAttack(player player);
+    public abstract String specialAttackLine();
+    
     public void DamageTaken(int pATK) {
         HP -= this.getDamageTaken(pATK);
     }

@@ -13,10 +13,14 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class game {
+    /*****************\
+     * Player Var! :D *
+    \*****************/
     private static player player;
     private static Scanner sc;
     private static EnemyChooser Renemy = new EnemyChooser();
-    private static boolean began = false, running;
+    private static boolean began = false, running, levelUp;
+    private static int levelsGained = 0;
     private static Random rand = new Random();
     private static LevelUp marketplace = new LevelUp();
     /***********\
@@ -42,14 +46,16 @@ public class game {
         running = true;
         run:
         while(running) {
-            System.out.println("\nWhat would you like to do?");
-            System.out.println("1. Fight Enemies");
-            System.out.println("2. Rest");
-            System.out.println("3. Show Stats");
-            System.out.println("4. Show Store");
-            System.out.println("5. Quit");
-            int intInput = sc.nextInt();
-            switch(intInput) {
+
+            if(levelUp) {
+              System.out.println("\nWhat would you like to do?");
+              System.out.println("1. Fight Enemies");
+              System.out.println("2. Rest");
+              System.out.println("3. Show Stats");
+              System.out.println("4. Show Store");
+              System.out.println("5. Quit");
+              int intInput = sc.nextInt();
+              switch(intInput) {
                 case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
                         fightOver = false;
                         fightEnemy(player, enemy);
@@ -63,7 +69,29 @@ public class game {
                 case 5: cya();
                         break;
                 default: System.out.println("That's not a valid command");
-                         continue run;
+                        continue run;
+              }
+            } else {
+              System.out.println("\nWhat would you like to do?");
+              System.out.println("1. Fight Enemies");
+              System.out.println("2. Rest");
+              System.out.println("3. Show Stats");
+              System.out.println("4. Quit");
+              int intInput = sc.nextInt();
+              switch(intInput) {
+                  case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
+                          fightOver = false;
+                          fightEnemy(player, enemy);
+                          break;
+                  case 2: rest(player);
+                          break;
+                  case 3: showStats(player);
+                          break;
+                  case 4: cya();
+                          break;
+                  default: System.out.println("That's not a valid command");
+                          continue run;
+              }
             }
         }
     }
@@ -89,8 +117,13 @@ public class game {
                 round = 0;
                 fightOver = true;
                 fightStarted = false;
+                
                 player.setCurrentEXP(enemy.drops());
-                System.out.println("You have defeated " + enemy.getName() + " Congratulations!");
+                if(player.getCurrentEXP()>=player.getBaseEXP()) {
+                  levelUp(player);
+                }
+                System.out.println("\nYou have defeated " + enemy.getName() + " Congratulations!");
+                System.out.println("EXP gained: " + enemy.drops());
                 runGame();
             }
 
@@ -183,9 +216,9 @@ public class game {
         fightOver = true;
     }
 
-    /*****************\
+    /****************\
      * STATISTICS :D *
-    \*****************/
+    \****************/
 
     // Show the stats during the fight!
     public static void showFightStats(player player, EnemyBuild enemy) {
@@ -219,22 +252,31 @@ public class game {
         System.out.println("---------------------------------------------------------------------");
     }
 
+    /************\
+     * Levels :D *
+    \************/
+
+    private static void levelUp(player player) {
+      levelUp = true;
+      for(levelsGained = 0;player.getCurrentEXP()>=player.getBaseEXP();levelsGained++) {
+        player.setCurrentEXP((int) (player.getCurrentEXP()-player.getBaseEXP())*-1);
+      }
+      player.setLevel(levelsGained);
+    }
     // The marketplace for levels!
     private static void inMarketPlace(player player) {
-        System.out.println(marketplace.showStore(player));
-        player.setLevel(1);
-        boolean LevelUp = true;
         run:
-        while(LevelUp) {
+        for(int pointsUsed = 0; pointsUsed < levelsGained;levelsGained--) {
+          System.out.println("Points to spend: " + levelsGained + "\n" + marketplace.showStore(player));
             int input = sc.nextInt();
             switch(input) {
-                case 1: player.setBaseHP(10); LevelUp = false;
+                case 1: player.setBaseHP(10); levelUp = false;
                         break;
-                case 2: player.setBaseDEF(2); LevelUp = false;
+                case 2: player.setBaseDEF(2); levelUp = false;
                         break;
-                case 3: player.setATK(10);    LevelUp = false;
+                case 3: player.setATK(10);    levelUp = false;
                         break;
-                case 4: player.setINT(2);     LevelUp = false;
+                case 4: player.setINT(2);     levelUp = false;
                         break;
                 default: System.out.println("Invalid Command"); continue run;
             }

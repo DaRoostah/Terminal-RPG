@@ -1,11 +1,11 @@
 package fileOrganizerlol.code.Player;
-import fileOrganizerlol.code.Player.exp;
 public class player {
     private String name;
     private static int level, baseHP, baseDEF, baseEXP;
     private static int HP, ATK, INT, cEXP;
     // Accessors
     public int getBaseEXP() {
+        exp exp = new exp();
         baseEXP = exp.experiencePerLevel(level);
         return baseEXP;
     }
@@ -79,7 +79,6 @@ public class player {
         INT = 15;
         baseDEF = 5;
         level = 1;
-        baseEXP = 1000;
     }
 
 }
