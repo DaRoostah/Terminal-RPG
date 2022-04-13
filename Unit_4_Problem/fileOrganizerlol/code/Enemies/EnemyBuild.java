@@ -14,11 +14,15 @@ public abstract class EnemyBuild {
         this.ATK = ATk;
         this.DEF = DEF;
     }
-
+    public void resetEnemy(int x, int y, int z) {
+        this.HP = x;
+        this.ATK = y;
+        this.DEF = z;
+    }
     public EnemyBuild() {}
     
     public int drops() {
-        return (int) (Math.pow(getBaseHP(), 2));
+        return (int) (Math.pow(this.BaseHP, 2));
     }
     public String getName() {
         return name;

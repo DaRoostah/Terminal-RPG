@@ -117,20 +117,21 @@ public class game {
                 round = 0;
                 fightOver = true;
                 fightStarted = false;
-                
-                player.setCurrentEXP(enemy.drops());
-                if(player.getCurrentEXP()>=player.getBaseEXP()) {
-                  levelUp(player);
-                }
                 System.out.println("\nYou have defeated " + enemy.getName() + " Congratulations!");
                 System.out.println("EXP gained: " + enemy.drops());
+                player.increaseCurrentEXP(enemy.drops());
+                if(player.getCurrentEXP()>=player.getBaseEXP()) {
+                    levelUpPlayer(player);
+                }
                 runGame();
+
             }
 
             if(player.getHP() <= 0) {
                 fightOver = true;
                 fightStarted = false;
                 player.killPlayer();
+                levelUp = false;
                 cya(player, enemy);
                 break;
             } else {
@@ -181,11 +182,11 @@ public class game {
         if (rand.nextInt(100)<=10) {
           int enemyDamage = enemy.specialAttack(player);
           System.out.println(enemy.specialAttackLine());
-          player.setHP(enemyDamage);
+          player.decreaseHP(enemyDamage);
         } else {
             int enemyDamage = enemy.getDamageDealt();
             System.out.println("The Enemy tackled you for " + enemyDamage + " damage");
-            player.setHP(enemyDamage);
+            player.decreaseHP(enemyDamage);
         }
     }
 
@@ -194,11 +195,11 @@ public class game {
     public static void rest(player player, EnemyBuild enemy) {
 
         int healAmount = (rand.nextInt(player.getINT())+5)*-1;
-        player.setHP(healAmount);
+        player.increaseHP(healAmount);
         System.out.println(player.getName() + " has healed for " + String.valueOf(healAmount*-1) + " HP!");
         enemyAttacks(player, enemy);
         if(player.getHP() > player.getBaseHP()) {
-            player.setHP((player.getBaseHP() - player.getHP())*-1);
+            player.decreaseHP((player.getBaseHP() - player.getHP())*-1);
         }
     }
 
@@ -256,12 +257,17 @@ public class game {
      * Levels :D *
     \************/
 
-    private static void levelUp(player player) {
-      levelUp = true;
-      for(levelsGained = 0;player.getCurrentEXP()>=player.getBaseEXP();levelsGained++) {
-        player.setCurrentEXP((int) (player.getCurrentEXP()-player.getBaseEXP())*-1);
-      }
-      player.setLevel(levelsGained);
+    private static void levelUpPlayer(player player) {
+        while(player.getCurrentEXP()>=player.getBaseEXP()) {
+            player.decreaseCurrentEXP(player.getBaseEXP());
+            levelsGained++;
+        }
+        if(player.getCurrentEXP()<0)
+            player.setCurrentEXP(0);
+        if(levelsGained!=0) {
+            levelUp = true;
+            player.setLevel(levelsGained);
+        }
     }
     // The marketplace for levels!
     private static void inMarketPlace(player player) {

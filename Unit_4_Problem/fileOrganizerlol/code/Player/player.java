@@ -1,13 +1,14 @@
 package fileOrganizerlol.code.Player;
 public class player {
     private String name;
-    private static int level, baseHP, baseDEF, baseEXP;
+    private static int level;
+    private static int baseHP;
+    private static int baseDEF;
     private static int HP, ATK, INT, cEXP;
     // Accessors
     public int getBaseEXP() {
         exp exp = new exp();
-        baseEXP = exp.experiencePerLevel(level);
-        return baseEXP;
+        return exp.experiencePerLevel(level);
     }
     public int getCurrentEXP() {
         return cEXP;
@@ -47,8 +48,11 @@ public class player {
     public void setBaseHP(int x) {
         player.baseHP += x;
     }
-    public void setHP(int x) {
+    public void decreaseHP(int x) {
         player.HP -= x;
+    }
+    public void increaseHP(int x) {
+        player.HP += x;
     }
     public void setATK(int x) {
         player.ATK += x;
@@ -68,7 +72,12 @@ public class player {
     public void setCurrentEXP(int x) {
         player.cEXP += x;
     }
-
+    public void increaseCurrentEXP(int x) {
+        player.cEXP += x;
+    }
+    public void decreaseCurrentEXP(int x) {
+        player.cEXP -= x;
+    }
 
     // Player
     public player(String name) {
