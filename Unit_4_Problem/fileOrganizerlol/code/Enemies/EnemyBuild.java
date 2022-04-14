@@ -15,7 +15,8 @@ public abstract class EnemyBuild {
         this.DEF = DEF;
     }
     public void resetEnemy(int x, int y, int z) {
-        this.HP = x;
+        this.BaseHP = x;
+        this.HP = this.BaseHP;
         this.ATK = y;
         this.DEF = z;
     }

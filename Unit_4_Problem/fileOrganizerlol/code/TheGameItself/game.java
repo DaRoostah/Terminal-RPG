@@ -114,10 +114,11 @@ public class game {
         run:
         while(fightStarted && !fightOver) {
             if(player.getHP() <= 0) {
+                cya(player, enemy);
                 running = false;
                 fightStarted = false;
                 fightOver = true;
-                cya(player, enemy);
+                
                 break;
             }
 
