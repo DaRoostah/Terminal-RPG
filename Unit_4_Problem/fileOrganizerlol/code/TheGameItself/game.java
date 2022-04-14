@@ -33,17 +33,12 @@ public class game {
             System.out.print("What is your name?\n\t> ");
             // player = new player(sc.nextLine()); 
             DEBUG: player = new player("DEBUG");
-
-            System.out.println("---------------------------------------------------------------------");
-            System.out.println(player.getName() + "'s Stats\n" +
-                               "HP: " + player.getHP() + "\\" + player.getBaseHP());
-            System.out.println("---------------------------------------------------------------------");
-            
+            showStats(player);
             System.out.println("\nThese are your stats ^^");
             began = true;
         }
         run:
-        while(running) {
+        while(running && !quitting) {
 
             if(levelUp) {
               System.out.println("\nWhat would you like to do?");
@@ -108,9 +103,8 @@ public class game {
         while(fightStarted && !quitting) {
             if(player.getHP() <= 0) {
                 quitting = true;
-                cya(player, enemy);
                 fightStarted = false;
-                System.out.println("Player is DEAD");
+                cya(player, enemy);
                 break;
             }
             if(enemy.getHP() <= 0) {
@@ -148,10 +142,6 @@ public class game {
                 }
             }
         } // Out of loop
-
-        System.out.println("Out of Loop CONFIMREED");
-        fightStarted = false;
-        running = false;
     }
     
     // Method for the player fighting
