@@ -19,7 +19,7 @@ public class game {
     private static player player;
     private static Scanner sc;
     private static EnemyChooser Renemy = new EnemyChooser();
-    private static boolean began = false, running, levelUp;
+    private static boolean began = false, running = true, levelUp;
     private static int levelsGained = 0;
     private static Random rand = new Random();
     private static LevelUp marketplace = new LevelUp();
@@ -42,8 +42,6 @@ public class game {
             System.out.println("\nThese are your stats ^^");
             began = true;
         }
-
-        running = true;
         run:
         while(running) {
 
@@ -57,7 +55,7 @@ public class game {
               int intInput = sc.nextInt();
               switch(intInput) {
                 case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
-                        fightOver = false;
+                        fightStarted = true;
                         fightEnemy(player, enemy);
                         break;
                 case 2: rest(player);
@@ -80,7 +78,7 @@ public class game {
               int intInput = sc.nextInt();
               switch(intInput) {
                   case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
-                          fightOver = false;
+                          fightStarted = true;
                           fightEnemy(player, enemy);
                           break;
                   case 2: rest(player);
@@ -101,30 +99,19 @@ public class game {
     \****************/
     
     // Player starts fight with a enemy
-    private static boolean fightStarted = false, fightOver = false;
+    private static boolean fightStarted = false;
     private static int round;
     public static void fightEnemy(player player, EnemyBuild enemy) {
-        if(!fightStarted || !fightOver) {
-            round = 0;
-            fightStarted = true;
-            fightOver = false;
-        }
-
-
         run:
-        while(fightStarted && !fightOver) {
+        while(true) {
             if(player.getHP() <= 0) {
-                cya(player, enemy);
-                running = false;
-                fightStarted = false;
-                fightOver = true;
-                
+                // cya(player, enemy);
+                System.out.println("Player is DEAD");
                 break;
             }
 
             if(enemy.getHP() <= 0) {
                 round = 0;
-                fightOver = true;
                 fightStarted = false;
                 System.out.println("\nYou have defeated " + enemy.getName() + " Congratulations!");
                 System.out.println("EXP gained: " + enemy.drops());
@@ -158,7 +145,10 @@ public class game {
                          continue run;
             }
         }
-        
+
+        System.out.println("Out of Loop CONFIMREED");
+        fightStarted = false;
+        running = false;
     }
     
     // Method for the player fighting
@@ -216,7 +206,7 @@ public class game {
     public static void run() {
         makeLines();
         System.out.println("You ran and didn't fight back!");
-        fightOver = true;
+        fightStarted = false;
     }
 
     /****************\
