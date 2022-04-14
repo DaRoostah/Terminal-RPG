@@ -85,7 +85,7 @@ public class player {
     // Player
     public player(String name) {
         this.name = name;
-        baseHP = 25;
+        baseHP = 5;
         HP = baseHP;
         ATK = 15;
         INT = 15;

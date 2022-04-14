@@ -19,7 +19,7 @@ public class game {
     private static player player;
     private static Scanner sc;
     private static EnemyChooser Renemy = new EnemyChooser();
-    private static boolean began = false, running = true, levelUp;
+    private static boolean began = false, running = true, levelUp, quitting = false;
     private static int levelsGained = 0;
     private static Random rand = new Random();
     private static LevelUp marketplace = new LevelUp();
@@ -65,6 +65,7 @@ public class game {
                 case 4: inMarketPlace(player);
                         break;
                 case 5: cya();
+                        quitting = true;
                         break;
                 default: System.out.println("That's not a valid command");
                         continue run;
@@ -86,6 +87,7 @@ public class game {
                   case 3: showStats(player);
                           break;
                   case 4: cya();
+                          quitting = true;
                           break;
                   default: System.out.println("That's not a valid command");
                           continue run;
@@ -103,13 +105,14 @@ public class game {
     private static int round;
     public static void fightEnemy(player player, EnemyBuild enemy) {
         run:
-        while(true) {
+        while(fightStarted && !quitting) {
             if(player.getHP() <= 0) {
-                // cya(player, enemy);
+                quitting = true;
+                cya(player, enemy);
+                fightStarted = false;
                 System.out.println("Player is DEAD");
                 break;
             }
-
             if(enemy.getHP() <= 0) {
                 round = 0;
                 fightStarted = false;
@@ -120,31 +123,31 @@ public class game {
                     levelUpPlayer(player);
                 }
                 runGame();
-
             }  else {
                 makeLines();
                 showFightStats(player, enemy);
             }
 
-
             round++;
-            System.out.println("What do you want to do?");
-            System.out.println("1. Attack");
-            System.out.println("2. Rest");
-            System.out.println("3. Run");
-            int intInput = sc.nextInt();
+            if(!quitting) {
+                System.out.println("What do you want to do?");
+                System.out.println("1. Attack");
+                System.out.println("2. Rest");
+                System.out.println("3. Run");
+                int intInput = sc.nextInt();
             
-            switch(intInput) {
-                case 1: Attack(player, enemy);
-                        break;
-                case 2: rest(player, enemy);
-                        break;
-                case 3: run();
-                        break;
-                default: System.out.println("That's not valid command.");
-                         continue run;
+                switch(intInput) {
+                    case 1: Attack(player, enemy);
+                            break;
+                    case 2: rest(player, enemy);
+                            break;
+                    case 3: run();
+                            break;
+                    default: System.out.println("That's not valid command.");
+                            continue run;
+                }
             }
-        }
+        } // Out of loop
 
         System.out.println("Out of Loop CONFIMREED");
         fightStarted = false;
@@ -285,13 +288,14 @@ public class game {
     // Leaving the game :(
     public static void cya(player player, EnemyBuild enemy) {
 
-        player.killPlayer();
+        fightStarted = false;
         makeLines();
         showFightStats(player, enemy);
         System.out.println("Should've just used recovery breathing smh");
     }
     public static void cya() {
         running = false;
+        fightStarted = false;
         makeLines();
         System.out.println("Thanks for playing the game!");
     }
