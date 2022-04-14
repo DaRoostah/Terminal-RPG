@@ -102,10 +102,14 @@ public class game {
         run:
         while(fightStarted && !quitting) {
             if(player.getHP() <= 0) {
-                quitting = true;
-                fightStarted = false;
-                cya(player, enemy);
-                break;
+                if(rand.nextInt(100) < 15) {
+                    player.usePlotArmor();
+                } else {
+                    quitting = true;
+                    fightStarted = false;
+                    cya(player, enemy);
+                    break;
+                }
             }
             if(enemy.getHP() <= 0) {
                 round = 0;

@@ -1,4 +1,7 @@
 package fileOrganizerlol.code.Player;
+
+import java.util.Random;
+
 public class player {
     private String name;
     private static int level;
@@ -80,6 +83,23 @@ public class player {
     }
     public void decreaseCurrentEXP(int x) {
         player.cEXP -= x;
+    }
+    public void usePlotArmor() {
+        System.out.print("You nearly died, til you");
+        Random rand = new Random();
+        switch(rand.nextInt(3)) {
+            case 0: System.out.println(" used recovery breathing");
+                    break;
+            case 1: System.out.println( " unlocked ultra instinct");
+                    break;
+            case 2: System.out.println(" had a flashback for who you're fighting for");
+                    break;
+            default: System.out.println(" unknown causes has brought you back to life");
+        }
+        player.baseHP += 15;
+        player.HP = (int)player.baseHP/20;
+        player.ATK += 10;
+        player.baseDEF += 5;
     }
 
     // Player
