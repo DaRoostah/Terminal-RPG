@@ -11,9 +11,21 @@ public class MyersTheEvilOne extends EnemyBuild {
     private Random rand = new Random();
     private int damage;
     @Override
-    public int specialAttack(player player) {
-        damage = (int) ((int) rand.nextInt(this.getATK())*2.5);
-        return damage;
+    public int specialAttack(player player, int round) {
+        switch(rand.nextInt(3)) {
+            case 0: damage = (int) ((int) rand.nextInt(this.getATK())*2.5);
+                    return damage;
+            case 1: damage = rand.nextInt(this.getATK());
+                    int healed = (int) (damage*1.5)*-1;
+                    this.setHP((int) (damage*1.5)*-1);
+                    if(this.getHP()>this.getBaseHP()) {
+                        this.setHP(this.getBaseHP()-healed);
+                    }
+                    return damage;
+            case 2: player.poisonDebuff();
+                    
+            default: return 0;
+        }
     }
     @Override
     public String specialAttackLine() {

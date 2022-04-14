@@ -52,7 +52,7 @@ public abstract class EnemyBuild {
         return rand.nextInt(this.ATK);
     }
 
-    public abstract int specialAttack(player player);
+    public abstract int specialAttack(player player,int round);
     public abstract String specialAttackLine();
     
     public void DamageTaken(int pATK) {

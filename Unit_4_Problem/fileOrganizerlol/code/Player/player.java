@@ -101,6 +101,9 @@ public class player {
         player.ATK += 10;
         player.baseDEF += 5;
     }
+    public boolean poisonDebuff() {
+        return true;
+    }
 
     // Player
     public player(String name) {
