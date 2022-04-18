@@ -4,7 +4,7 @@ import fileOrganizerlol.code.TheGameItself.game;
  */
 public class arunner {
     private static void run() {
-        System.out.println("run");
+        // System.out.println("run");
         game.runGame();
         
     }
