@@ -11,7 +11,7 @@ public class Bandit extends EnemyBuild {
     private Random rand = new Random();
     private int damage;
     @Override
-    public int specialAttack(player player, int round) {
+    public int specialAttack(player player) {
         
         damage = (int) ((int) rand.nextInt(this.getATK())*2.15);
         return damage;

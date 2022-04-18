@@ -31,8 +31,8 @@ public class game {
         if(!began) {
             sc = new Scanner(System.in);
             System.out.print("What is your name?\n\t> ");
-            // player = new player(sc.nextLine()); 
-            DEBUG: player = new player("DEBUG");
+            player = new player(sc.nextLine()); 
+            // DEBUG: player = new player("DEBUG");
             showStats(player);
             System.out.println("\nThese are your stats ^^");
             began = true;

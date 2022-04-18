@@ -12,7 +12,7 @@ public class Slime extends EnemyBuild {
     private int damage, healed;
 
     @Override
-    public int specialAttack(player player, int round) {
+    public int specialAttack(player player) {
         damage = rand.nextInt(this.getATK());
         healed = (int) (damage*1.5)*-1;
         this.setHP((int) (damage*1.5)*-1);

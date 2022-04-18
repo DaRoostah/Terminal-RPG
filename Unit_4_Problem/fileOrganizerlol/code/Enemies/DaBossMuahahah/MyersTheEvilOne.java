@@ -11,7 +11,7 @@ public class MyersTheEvilOne extends EnemyBuild {
     private Random rand = new Random();
     private int damage;
     @Override
-    public int specialAttack(player player, int round) {
+    public int specialAttack(player player) {
         switch(rand.nextInt(3)) {
             case 0: damage = (int) ((int) rand.nextInt(this.getATK())*2.5);
                     return damage;
