@@ -4,6 +4,7 @@ package fileOrganizerlol.code.TheGameItself;
 // Player file
 import fileOrganizerlol.code.Player.*;
 import fileOrganizerlol.code.Store.LevelUp;
+import fileOrganizerlol.DataStorage.Data;
 // Enemy files
 import fileOrganizerlol.code.Enemies.EnemyBuild;
 import fileOrganizerlol.code.Enemies.EnemyChooser;
@@ -46,7 +47,8 @@ public class game {
               System.out.println("2. Rest");
               System.out.println("3. Show Stats");
               System.out.println("4. Level Up!");
-              System.out.println("5. Quit");
+              System.out.println("5. Save Game");
+              System.out.println("6. Quit");
               int intInput = sc.nextInt();
               switch(intInput) {
                 case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
@@ -59,7 +61,9 @@ public class game {
                         break;
                 case 4: inMarketPlace(player);
                         break;
-                case 5: cya();
+                case 5: saveGame(player);
+                        break;
+                case 6: cya();
                         quitting = true;
                         break;
                 default: System.out.println("That's not a valid command");
@@ -70,7 +74,8 @@ public class game {
               System.out.println("1. Fight Enemies");
               System.out.println("2. Rest");
               System.out.println("3. Show Stats");
-              System.out.println("4. Quit");
+              System.out.println("4. Save Game");
+              System.out.println("5. Quit");
               int intInput = sc.nextInt();
               switch(intInput) {
                   case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
@@ -81,7 +86,9 @@ public class game {
                           break;
                   case 3: showStats(player);
                           break;
-                  case 4: cya();
+                  case 4: saveGame(player);
+                          break;
+                  case 5: cya();
                           quitting = true;
                           break;
                   default: System.out.println("That's not a valid command");
@@ -180,7 +187,6 @@ public class game {
     }
 
     // One way to heal! B)
-
     public static void rest(player player, EnemyBuild enemy) {
 
         int healAmount = (rand.nextInt(player.getINT())+5);
@@ -299,6 +305,15 @@ public class game {
         for(int i = 0;i < 15;i++) {
             System.out.print("\n");
         }
+    }
+
+    private static void saveGame(player player) {
+      Data d = new Data();
+      sc = new Scanner(System.in);
+      System.out.println("Which slot do you want to save your game? (1, 2, 3)");
+      int Input = sc.nextInt();
+      d.Save(Input, player);
+      System.out.println("Game Saved!");
     }
 
 }

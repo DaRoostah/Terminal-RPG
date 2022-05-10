@@ -1,0 +1,4 @@
+Name: test
+Level: 3	EXP: 30/300
+HP: 5/5	DEF: 5
+ATK: 35	INT: 15
