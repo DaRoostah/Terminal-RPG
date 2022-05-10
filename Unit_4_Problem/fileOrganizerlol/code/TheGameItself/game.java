@@ -227,20 +227,22 @@ public class game {
     // Show player's statistics! :)
     private static void showStats(player player) {
         System.out.println("---------------------------------------------------------------------");
-        System.out.println(player.getName() + "'s Stats\n" +
-                           "Level: " + player.getLevel() + "\tEXP: " + player.getCurrentEXP() + "/" + player.getBaseEXP() +
-                           "\nHP: " + player.getHP() + "/" + player.getBaseHP() +
-                           "\tDEF: " + player.getBaseDEF());
-                           if(!fightStarted) {
-                            System.out.println("ATK: " + player.getATK() + "\tINT: " + player.getINT());
-                           }
+        String stats = player.getName() + "'s Stats\n" +
+        "Level: " + player.getLevel() + "\tEXP: " + player.getCurrentEXP() + "/" + player.getBaseEXP() +
+        "\nHP: " + player.getHP() + "/" + player.getBaseHP() + "\tDEF: " + player.getBaseDEF();
+        if(!fightStarted)
+            stats = player.getName() + "'s Stats\n" +
+            "Level: " + player.getLevel() + "\tEXP: " + player.getCurrentEXP() + "/" + player.getBaseEXP() +
+            "\nHP: " + player.getHP() + "/" + player.getBaseHP() + "\tDEF: " + player.getBaseDEF() +
+            "\nATK: " + player.getATK() + "\tINT: " + player.getINT();
+        System.out.println(stats);
         System.out.println("---------------------------------------------------------------------");
     }
 
     // Show's the evil enemy statistics muahahaha >:D
     private static void showEnemyStats(EnemyBuild enemy) {
         if(enemy.getHP() <= 0)
-        enemy.killEnemy();
+            enemy.killEnemy();
         System.out.println("---------------------------------------------------------------------");
         System.out.println(enemy.getName() + "'s Stats\n" +
                            "\nHP: " + enemy.getHP() + "/" + enemy.getBaseHP() +

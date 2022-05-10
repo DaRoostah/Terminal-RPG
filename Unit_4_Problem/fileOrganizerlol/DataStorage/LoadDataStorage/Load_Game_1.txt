@@ -1,4 +1,9 @@
-Name: test
-Level: 3	EXP: 5/300
-HP: 4/5	DEF: 5
-ATK: 35	INT: 15
+Name: Test
+Level: 1
+EXP: 9
+BaseEXP: 10
+HP: 5
+BaseHP: 5
+DEF: 5
+ATK: 15
+INT: 15

@@ -23,10 +23,10 @@ public class Data {
       writer = new BufferedWriter(cFile);
       // System.out.println("Save Check");
       writer.write("Name: " + player.getName() + "\n" +
-      "Level: " + player.getLevel() + "\tEXP: " + player.getCurrentEXP() + "/" + player.getBaseEXP() +
-      "\nHP: " + player.getHP() + "/" + player.getBaseHP() +
-      "\tDEF: " + player.getBaseDEF() +
-       "\nATK: " + player.getATK() + "\tINT: " + player.getINT());
+      "Level: " + player.getLevel() + "\nEXP: " + player.getCurrentEXP() + "\nBaseEXP: " + player.getBaseEXP() +
+      "\nHP: " + player.getHP() + "\nBaseHP: " + player.getBaseHP() +
+      "\nDEF: " + player.getBaseDEF() +
+       "\nATK: " + player.getATK() + "\nINT: " + player.getINT());
       writer.close();
     } catch (IOException e) {
       e.printStackTrace();
