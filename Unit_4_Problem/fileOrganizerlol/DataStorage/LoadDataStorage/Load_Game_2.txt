@@ -1,0 +1,9 @@
+Name: test
+Level: 1
+EXP: 9
+BaseEXP: 10
+HP: 4
+BaseHP: 5
+DEF: 5
+ATK: 15
+INT: 15

@@ -28,7 +28,7 @@ public class game {
      * GAME :D *
     \***********/
     public static void runGame() {
-        
+
         if(!began) {
             sc = new Scanner(System.in);
             System.out.print("What is your name?\n\t> ");
@@ -101,7 +101,7 @@ public class game {
     /****************\
      * MECHANICS :D *
     \****************/
-    
+
     // Player starts fight with a enemy
     private static boolean fightStarted = false;
     private static int round;
@@ -154,7 +154,7 @@ public class game {
             }
         } // Out of loop
     }
-    
+
     // Method for the player fighting
     public static void Attack(player player, EnemyBuild enemy) {
         switch(rand.nextInt(3)) {
@@ -168,7 +168,7 @@ public class game {
         }
         int playerDamage = rand.nextInt(player.getATK());
         System.out.println("Dealing " + enemy.getDamageTaken(playerDamage) + " damage!");
-        
+
         enemy.DamageTaken(playerDamage);
         enemyAttacks(player, enemy);
     }
