@@ -4,10 +4,10 @@ import java.util.Random;
 
 public class player {
     private String name;
-    private static int level;
-    private static int baseHP;
-    private static int baseDEF;
-    private static int HP, ATK, INT, cEXP;
+    private int level;
+    private int baseHP;
+    private int baseDEF;
+    private int HP, ATK, INT, cEXP;
     // Accessors
     public int getBaseEXP() {
         exp exp = new exp();
@@ -46,43 +46,43 @@ public class player {
 
     // Mutators
     public void setLevel(int x) {
-        player.level += x;
+        this.level += x;
     }
     public void setBaseHP(int x) {
-        player.baseHP += x;
+        this.baseHP += x;
     }
     public void setHP(int x) {
-        player.HP = x;
+        this.HP = x;
     }
     public void decreaseHP(int x) {
-        player.HP -= x;
+        this.HP -= x;
     }
     public void increaseHP(int x) {
-        player.HP += x;
+        this.HP += x;
     }
     public void setATK(int x) {
-        player.ATK += x;
+        this.ATK += x;
     }
     public void setINT(int x) {
-        player.INT += x; 
+        this.INT += x; 
     }
     public void setBaseDEF(int x) {
-        player.baseDEF += x;
+        this.baseDEF += x;
     }
     public void killPlayer() {
-        player.HP = 0;
+        this.HP = 0;
     }
     public void healPlayer() {
-        player.HP = player.baseHP;
+        this.HP = this.baseHP;
     }
     public void setCurrentEXP(int x) {
-        player.cEXP += x;
+        this.cEXP += x;
     }
     public void increaseCurrentEXP(int x) {
-        player.cEXP += x;
+        this.cEXP += x;
     }
     public void decreaseCurrentEXP(int x) {
-        player.cEXP -= x;
+        this.cEXP -= x;
     }
     public void usePlotArmor() {
         System.out.print("You nearly died, til you");
@@ -96,13 +96,24 @@ public class player {
                     break;
             default: System.out.println(" unknown causes has brought you back to life");
         }
-        player.baseHP += 15;
-        player.HP = (int)player.baseHP/20;
-        player.ATK += 10;
-        player.baseDEF += 5;
+        this.baseHP += 15;
+        this.HP = (int)this.baseHP/20;
+        this.ATK += 10;
+        this.baseDEF += 5;
     }
     public boolean poisonDebuff() {
         return true;
+    }
+
+    public void loadPlayer(String name, int baseHP, int HP, int ATK, int INT, int baseDEF, int level, int cEXP) {
+        this.name = name;
+        this.baseHP = baseHP;
+        this.HP = HP;
+        this.ATK = ATK;
+        this.INT = INT;
+        this.baseDEF = baseDEF;
+        this.level = level;
+        this.cEXP = cEXP;
     }
 
     // Player

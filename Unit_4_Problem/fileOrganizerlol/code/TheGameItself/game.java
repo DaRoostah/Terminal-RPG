@@ -48,7 +48,8 @@ public class game {
               System.out.println("3. Show Stats");
               System.out.println("4. Level Up!");
               System.out.println("5. Save Game");
-              System.out.println("6. Quit");
+              System.out.println("6. Load Game");
+              System.out.println("7. Quit");
               int intInput = sc.nextInt();
               switch(intInput) {
                 case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
@@ -63,7 +64,9 @@ public class game {
                         break;
                 case 5: saveGame(player);
                         break;
-                case 6: cya();
+                case 6: loadGame(player);
+                        break;
+                case 7: cya();
                         quitting = true;
                         break;
                 default: System.out.println("That's not a valid command");
@@ -75,7 +78,8 @@ public class game {
               System.out.println("2. Rest");
               System.out.println("3. Show Stats");
               System.out.println("4. Save Game");
-              System.out.println("5. Quit");
+              System.out.println("5. Load Game");
+              System.out.println("6. Quit");
               int intInput = sc.nextInt();
               switch(intInput) {
                   case 1: EnemyBuild enemy = Renemy.chosenEnemy(player);
@@ -88,7 +92,9 @@ public class game {
                           break;
                   case 4: saveGame(player);
                           break;
-                  case 5: cya();
+                  case 5: loadGame(player);
+                          break;
+                  case 6: cya();
                           quitting = true;
                           break;
                   default: System.out.println("That's not a valid command");
@@ -316,6 +322,13 @@ public class game {
       int Input = sc.nextInt();
       d.Save(Input, player);
       System.out.println("Game Saved!");
+    }
+    private static void loadGame(player player) {
+        Data d = new Data();
+        sc = new Scanner(System.in);
+        System.out.println("Which slot you want to load your game? (1, 2, 3)");
+        int Input = sc.nextInt();
+        d.loadGame(Input, player);
     }
 
 }

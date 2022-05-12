@@ -1,6 +1,6 @@
-Name: Test
+Name: Example
 Level: 1
-EXP: 9
+EXP: 0
 BaseEXP: 10
 HP: 5
 BaseHP: 5
